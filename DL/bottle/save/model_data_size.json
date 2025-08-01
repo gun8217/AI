@@ -1,0 +1,29 @@
+{
+    "train": {
+        "total_label_files": 419,
+        "class_counts": {
+            "bad-broken_small": 88,
+            "bad-contamination": 84,
+            "bad-broken_large": 80,
+            "bottle-good": 167
+        }
+    },
+    "val": {
+        "total_label_files": 77,
+        "class_counts": {
+            "bottle-good": 31,
+            "bad-contamination": 15,
+            "bad-broken_large": 15,
+            "bad-broken_small": 16
+        }
+    },
+    "test": {
+        "total_label_files": 28,
+        "class_counts": {
+            "bad-contamination": 6,
+            "bad-broken_small": 6,
+            "bad-broken_large": 5,
+            "bottle-good": 11
+        }
+    }
+}

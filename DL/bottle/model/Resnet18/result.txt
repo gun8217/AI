@@ -1,0 +1,19 @@
+Early Stopping : Last Epoch 33
+
+SEED = 3
+
+letterbox_image : 256, 256
+train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)
+val_loader = DataLoader(val_dataset, batch_size=16, shuffle=False)
+test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False)
+
+�📅 Epoch 15
+�🔧 Train Loss: 0.0065, Accuracy: 1.0000
+📅 Validation Accuracy: 0.9870, Loss: 0.0389
+✅ Saved best_val_cnn.pt (Epoch 15)
+✅ Saved best_all_cnn.pt (Epoch 15) by relaxed all-metric conditi
+
+�📅 Epoch 18(채택)
+�🔧 Train Loss: 0.0112, Accuracy: 0.9952
+📅 Validation Accuracy: 0.9870, Loss: 0.0363
+✅ Saved best_val_cnn.pt (Epoch 18)
