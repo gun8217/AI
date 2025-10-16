@@ -54,8 +54,8 @@ for cls, files in class_files.items():
 # crops 폴더 삭제 (비었을 경우)
 if crop_dir.exists() and not any(crop_dir.iterdir()):
     crop_dir.rmdir()
-    print("🧹 crops 폴더가 비어 있어 삭제했습니다!")
+    print("crops 폴더가 비어 있어 삭제했습니다!")
 else:
-    print("⚠️ crops 폴더가 비어 있지 않거나 삭제 실패!")
+    print("crops 폴더가 비어 있지 않거나 삭제 실패!")
 
-print("✅ 전체 작업 완료: 이미지 이동 + 분할 + 정리 끝!")
+print("전체 작업 완료: 이미지 이동 + 분할 + 정리 끝!")

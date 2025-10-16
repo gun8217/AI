@@ -19,7 +19,7 @@ print("이미지 로딩 성공 여부:", img is not None)
 
 import easyocr
 
-# ✅ OCR 모델 초기화 (이 부분이 반드시 먼저 있어야 함)
+# OCR 모델 초기화 (이 부분이 반드시 먼저 있어야 함)
 reader = easyocr.Reader(['ko', 'en'])
 
 # 텍스트 인식

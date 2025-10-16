@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     # ────────────────────────────────
     # 설정 로딩
-    with open("C:/Users/602-17/YOLO/super_resolution/app/config.yml", "r") as f:
+    with open("config.yml", "r") as f:
         config = yaml.safe_load(f)
 
     scale = config["scale"]
@@ -52,12 +52,12 @@ if __name__ == "__main__":
     # 체크포인트 이어 학습
     start_epoch = 1
     if checkpoint_path.exists():
-        print("🔁 RCAN Checkpoint 로딩 중...")
+        print("RCAN Checkpoint 로딩 중...")
         checkpoint = torch.load(checkpoint_path)
         model.load_state_dict(checkpoint["model_state_dict"])
         optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
         start_epoch = checkpoint["epoch"] + 1
-        print(f"📌 {checkpoint['epoch']} epoch 이후부터 이어서 학습합니다.\n")
+        print(f"{checkpoint['epoch']} epoch 이후부터 이어서 학습합니다.\n")
 
     # ────────────────────────────────
     # 학습 루프
@@ -81,7 +81,7 @@ if __name__ == "__main__":
             pbar.set_postfix(loss=loss.item())
 
         avg_loss = epoch_loss / len(train_loader)
-        print(f"✅ Epoch {epoch} 완료 | 평균 Loss: {avg_loss:.6f}")
+        print(f"Epoch {epoch} 완료 | 평균 Loss: {avg_loss:.6f}")
 
         # ────────────────────────────────
         # 체크포인트 저장
@@ -91,9 +91,9 @@ if __name__ == "__main__":
             "optimizer_state_dict": optimizer.state_dict(),
             "loss": avg_loss,
         }, checkpoint_path)
-        print(f"💾 체크포인트 저장 완료: {checkpoint_path}")
+        print(f"체크포인트 저장 완료: {checkpoint_path}")
 
     # ────────────────────────────────
     # 최종 모델 저장
     torch.save(model.state_dict(), model_path)
-    print(f"🎉 RCAN 훈련 완료! 모델 저장됨: {model_path}")
+    print(f"RCAN 훈련 완료! 모델 저장됨: {model_path}")

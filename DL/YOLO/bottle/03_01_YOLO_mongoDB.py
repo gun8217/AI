@@ -13,7 +13,7 @@ root = Path(__file__).parent.resolve()
 model_path = Path(root / "runs/bottle3/weights/best.pt")
 image_dir = Path(root / "dataset/images")
 label_dir = Path(root / "dataset/labels")
-crop_dir = Path(root / "dataset/crops")  # ✅ crop 저장 경로
+crop_dir = Path(root / "dataset/crops")  # crop 저장 경로
 crop_dir.mkdir(exist_ok=True)
 
 # 클래스 이름 정의
@@ -32,7 +32,7 @@ for img_path in image_dir.glob("*.jpg"):
     img = cv2.imread(str(img_path))
     h, w = img.shape[:2]
 
-    # ✅ YOLO 탐지 (index 0만)
+    # YOLO 탐지 (index 0만)
     results = model(str(img_path))
     boxes = results[0].boxes
     if boxes and len(boxes) > 0:
@@ -49,7 +49,7 @@ for img_path in image_dir.glob("*.jpg"):
         cls_name = class_map.get(cls_idx, f"class_{cls_idx}")
         filename = f"{img_path.stem}_0{img_path.suffix}"
 
-        # ✅ crop 이미지 저장
+        # crop 이미지 저장
         crop_img = img[y1:y2, x1:x2]
         crop_path = crop_dir / filename
         cv2.imwrite(str(crop_path), crop_img)
@@ -65,12 +65,12 @@ for img_path in image_dir.glob("*.jpg"):
             "confidence": round(conf, 4),
             "bbox": {"x1": x1, "y1": y1, "x2": x2, "y2": y2}
         })
-        print(f"✅ YOLO 등록 + crop 저장: {filename} | class: {cls_name}")
+        print(f"YOLO 등록 + crop 저장: {filename} | class: {cls_name}")
 
-    # ✅ Label 기반 crop
+    # Label 기반 crop
     label_path = label_dir / f"{img_path.stem}.txt"
     if not label_path.exists():
-        print(f"⚠️ 라벨 없음: {label_path.name}")
+        print(f"라벨 없음: {label_path.name}")
         continue
 
     with open(label_path, "r") as f:
@@ -109,6 +109,6 @@ for img_path in image_dir.glob("*.jpg"):
             "corrected": True,
             "bbox": {"x1": x1, "y1": y1, "x2": x2, "y2": y2}
         })
-        print(f"✅ Origin 등록: {img_path.name} | class: {cls_name} | index: {i}")
+        print(f"Origin 등록: {img_path.name} | class: {cls_name} | index: {i}")
 
-print("🎉 YOLO + Label 기반 MongoDB 등록 + crop 저장 완료!")
+print("YOLO + Label 기반 MongoDB 등록 + crop 저장 완료!")

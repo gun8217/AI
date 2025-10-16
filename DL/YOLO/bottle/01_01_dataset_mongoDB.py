@@ -36,4 +36,4 @@ for src_dir in label_dirs:
         dst_path = os.path.join(target_label_dir, filename)
         shutil.copy2(src_path, dst_path)
 
-print("📁 이미지와 라벨 파일이 통합 디렉터리로 복사되었습니다!")
+print("이미지와 라벨 파일이 통합 디렉터리로 복사되었습니다!")

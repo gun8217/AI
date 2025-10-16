@@ -130,14 +130,14 @@ for front in front_numbers:
             lr_img = img_hr.resize((150, 41), resample=Image.BICUBIC)
             lr_img.save(output_lr_folder / filename)
 
-print("✅ Step 1 완료: HR + 기본 LR 번호판 이미지 생성")
+print("Step 1 완료: HR + 기본 LR 번호판 이미지 생성")
 
 ### 4. HR 모든 이미지에 대해 8가지 LR + HR 쌍 생성
 
 hr_images = list(output_hr_folder.glob("*.jpg"))
-print(f"🔍 총 {len(hr_images)}개의 HR 이미지 처리 시작")
+print(f"총 {len(hr_images)}개의 HR 이미지 처리 시작")
 
 for hr_img_path in hr_images:
     generate_lr_pairs(hr_img_path, output_lr_folder, paired_hr_folder)
 
-print("✅ Step 2 완료: 모든 HR 이미지에 대해 LR/HR 짝 8쌍씩 생성 완료")
+print("Step 2 완료: 모든 HR 이미지에 대해 LR/HR 짝 8쌍씩 생성 완료")

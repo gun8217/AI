@@ -32,7 +32,7 @@ output = {
 }
 
 # 콘솔 출력
-print("📊 클래스별 객체 수:")
+print("클래스별 객체 수:")
 for name, count in output.items():
     print(f"{name}: {count}개")
 
@@ -42,4 +42,4 @@ json_path = root / 'save' / 'data_count_after.json'
 with json_path.open('w', encoding='utf-8') as json_file:
     json.dump(output, json_file, ensure_ascii=False, indent=4)
 
-print(f"\n✅ JSON 파일 저장 완료: {json_path}")
+print(f"\n JSON 파일 저장 완료: {json_path}")

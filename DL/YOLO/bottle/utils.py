@@ -22,7 +22,7 @@ def build_model(device, num_classes, model_name="resnet18"):
         )
     
     else:
-        raise ValueError(f"❌ Unknown model type: {model_name}")
+        raise ValueError(f"Unknown model type: {model_name}")
 
     model = model.to(device)
     model.eval()

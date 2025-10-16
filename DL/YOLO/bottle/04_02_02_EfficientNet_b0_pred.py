@@ -11,17 +11,17 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix, classification_report
 
-# 📌 클래스 정의
+# 클래스 정의
 CLASS_NAMES = ['bad-broken_large', 'bad-broken_small', 'bad-contamination', 'bottle-good']
 
-# 📁 디렉토리 경로
+# 디렉토리 경로
 root = Path(__file__).parent.resolve()
 test_dir = root / "dataset/fixed_data_split/test"
 model_path = root / "model/EfficientNet_b0/best_all.pt"
 save_dir = root / "model/EfficientNet_b0/pred"
 save_dir.mkdir(parents=True, exist_ok=True)
 
-# 🧱 Letterbox 이미지 리사이즈
+# Letterbox 이미지 리사이즈
 def letterbox_image(image, target_size=(256, 256)):
     iw, ih = image.size
     w, h = target_size
@@ -32,7 +32,7 @@ def letterbox_image(image, target_size=(256, 256)):
     new_image.paste(image_resized, ((w - nw) // 2, (h - nh) // 2))
     return new_image
 
-# 🔍 이미지 전처리
+# 이미지 전처리
 transform = transforms.Compose([
     transforms.Lambda(lambda img: letterbox_image(img, (256, 256))),
     transforms.ToTensor(),
@@ -40,28 +40,28 @@ transform = transforms.Compose([
                          std=[0.229, 0.224, 0.225])
 ])
 
-# 📦 데이터셋 및 데이터로더
+# 데이터셋 및 데이터로더
 test_dataset = datasets.ImageFolder(test_dir, transform=transform)
 test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False)
 
-# 📡 디바이스 설정
+# 디바이스 설정
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print("📌 Using device:", device)
+print("Using device:", device)
 
-# 🧠 EfficientNet 모델 정의
+# EfficientNet 모델 정의
 weights = EfficientNet_B0_Weights.DEFAULT
 model = efficientnet_b0(weights=weights)
 model.classifier[1] = nn.Linear(model.classifier[1].in_features, len(CLASS_NAMES))
 model = model.to(device)
 
-# 📦 모델 로드
+# 모델 로드
 model.load_state_dict(torch.load(model_path))
 model.eval()
 
-# 📝 결과 저장 리스트
+# 결과 저장 리스트
 results = []
 
-# 🧪 예측 및 정확도 평가
+# 예측 및 정확도 평가
 correct = 0
 total_samples = 0
 all_preds = []
@@ -79,7 +79,7 @@ with torch.no_grad():
         all_preds.extend(predicted.cpu().numpy())
         all_labels.extend(labels.cpu().numpy())
 
-        # 🔍 배치 이미지 파일 경로 수집
+        # 배치 이미지 파일 경로 수집
         start_idx = len(results)
         batch_paths = [test_dataset.samples[i][0] for i in range(start_idx, start_idx + inputs.size(0))]
 
@@ -93,26 +93,26 @@ with torch.no_grad():
 
 accuracy = correct / total_samples
 
-# ✅ 결과 출력
+# 결과 출력
 print(f"Test Accuracy: {accuracy * 100:.2f}%")
 print(f"Total Test Samples: {total_samples}")
 
-# 💾 CSV 저장
+# CSV 저장
 csv_path = save_dir / "test_results_ef.csv"
 with open(csv_path, 'w', newline='') as csvfile:
     fieldnames = ['image_path', 'true_label', 'predicted_label', 'result']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
     writer.writerows(results)
-print(f"📝 결과 CSV 파일 저장 완료: {csv_path}")
+print(f"결과 CSV 파일 저장 완료: {csv_path}")
 
-# 📊 혼동 행렬 및 리포트 계산
+# 혼동 행렬 및 리포트 계산
 cm = confusion_matrix(all_labels, all_preds)
 report = classification_report(all_labels, all_preds, target_names=CLASS_NAMES, digits=4)
-print("\n📋 Classification Report:\n")
+print("\n Classification Report:\n")
 print(report)
 
-# 🎨 혼동 행렬 시각화
+# 혼동 행렬 시각화
 plt.figure(figsize=(8, 6))
 sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
             xticklabels=CLASS_NAMES, yticklabels=CLASS_NAMES)
@@ -123,10 +123,10 @@ plt.tight_layout()
 cm_path = save_dir / "confusion_matrix.png"
 plt.savefig(cm_path)
 plt.close()
-print(f"📉 혼동 행렬 이미지 저장 완료: {cm_path}")
+print(f"혼동 행렬 이미지 저장 완료: {cm_path}")
 
-# 📄 Classification Report 저장
+# Classification Report 저장
 report_path = save_dir / "classification_report.txt"
 with open(report_path, "w") as f:
     f.write(report)
-print(f"📄 분류 리포트 저장 완료: {report_path}")
+print(f"분류 리포트 저장 완료: {report_path}")

@@ -32,4 +32,4 @@ def augment_image(img_path):
 for img_file in image_dir.glob('*.jpg'):
     augment_image(img_file)
 
-print("✅ 평면 구조 증강 + 라벨 복제 완료!")
+print("평면 구조 증강 + 라벨 복제 완료!")

@@ -14,7 +14,7 @@ video_path = root / "dataset/scroll_label_video.mp4"
 output_path = root / "dataset/output_video_ef.mp4"
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print("📌 Using device:", device)
+print("Using device:", device)
 
 cnn_model = build_model(device=device, num_classes=len(CLASS_NAMES), model_name="efficientnet_b0")
 cnn_model.load_state_dict(torch.load(cnn_model_path, map_location=device))
@@ -35,12 +35,12 @@ threshold = 50
 
 yolo = YOLO(str(yolo_model_path))
 
-# 📏 폰트 크기 설정
+# 폰트 크기 설정
 font_scale_yolo = 1.0
 font_scale_gt = 1.0
 font_scale_cnn = 1.5
 
-# 🔶 Ground Truth 라벨 로딩 함수 (YOLO 포맷 → 픽셀 좌표)
+# Ground Truth 라벨 로딩 함수 (YOLO 포맷 → 픽셀 좌표)
 def load_yolo_labels(label_path, img_width, img_height):
     boxes = []
     if not label_path.exists():
@@ -71,12 +71,12 @@ while cap.isOpened():
     cnn_label = None
     cnn_shown = False
 
-    # 🟩 GT 라벨 불러오기
+    # GT 라벨 불러오기
     label_file_name = f"{frame_count:06d}.txt"
     label_path = root / f"data/test/labels/{label_file_name}"
     gt_boxes = load_yolo_labels(label_path, width, height)
 
-    # 🟩 GT 박스 그리기 (주황색)
+    # GT 박스 그리기 (주황색)
     for gx1, gy1, gx2, gy2, gt_class_id in gt_boxes:
         gt_label = CLASS_NAMES[gt_class_id]
         cv2.rectangle(annotated_frame, (gx1, gy1), (gx2, gy2), (0, 165, 255), 2)
@@ -90,7 +90,7 @@ while cap.isOpened():
         conf = float(box.conf[0].item())
         yolo_label = CLASS_NAMES[class_id]
 
-        # 🔷 YOLO 예측 박스 (파란색)
+        # YOLO 예측 박스 (파란색)
         cv2.rectangle(annotated_frame, (x1, y1), (x2, y2), (255, 0, 0), 2)
         text_y = max(y1 - 10, 10)
 
@@ -117,7 +117,7 @@ while cap.isOpened():
                         (x1, text_y + 20),
                         cv2.FONT_HERSHEY_SIMPLEX, font_scale_gt, (0, 100, 0), 2)
 
-        # 🔴 중심에 위치한 객체 → CNN 판별
+        # 중심에 위치한 객체 → CNN 판별
         if not cnn_shown and abs(cx_pred - center_x) < threshold and abs(cy_pred - center_y) < threshold:
             cropped = frame[y1:y2, x1:x2]
             img_pil = Image.fromarray(cv2.cvtColor(cropped, cv2.COLOR_BGR2RGB))
@@ -146,4 +146,4 @@ while cap.isOpened():
 cap.release()
 out.release()
 cv2.destroyAllWindows()
-print(f"✅ 저장 완료: {output_path}")
+print(f"저장 완료: {output_path}")

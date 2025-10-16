@@ -53,4 +53,4 @@ for class_id, files in class_files.items():
             if image_file.exists():
                 shutil.copy(image_file, dst_image)
 
-print("\n✅ 클래스 균형 분할 완료!")
+print("\n 클래스 균형 분할 완료!")

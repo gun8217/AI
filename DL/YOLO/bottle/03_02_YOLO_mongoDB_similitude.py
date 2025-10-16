@@ -37,18 +37,18 @@ for origin in origin_docs:
             {
                 "$set": {
                     "class": origin_class,
-                    "fixed": True  # ✅ 보정 표시
+                    "fixed": True  # 보정 표시
                 }
             }
         )
         if result.modified_count > 0:
             fixed_count += 1
-            print(f"🔧 보정됨: {filename} | {yolo['class']} → {origin_class}")
+            print(f"보정됨: {filename} | {yolo['class']} → {origin_class}")
 
 # 결과 요약
-print(f"\n🎉 총 {fixed_count}개 YOLO 클래스 보정 완료!\n")
+print(f"\n 총 {fixed_count}개 YOLO 클래스 보정 완료!\n")
 
 if wrong_predictions:
-    print("❌ 틀린 예측 목록:")
+    print("틀린 예측 목록:")
     for wp in wrong_predictions:
         print(f"- {wp['filename']} | yolo: {wp['yolo_class']} → origin: {wp['origin_class']} | conf: {wp['confidence']}")

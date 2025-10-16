@@ -5,15 +5,15 @@ from torch.utils.data import DataLoader
 from pathlib import Path
 from PIL import Image
 
-# 📌 클래스 정의
+# 클래스 정의
 CLASS_NAMES = ['bad-broken_large', 'bad-broken_small', 'bad-contamination', 'bottle-good']
 
-# 📁 디렉토리 경로 설정
+# 디렉토리 경로 설정
 root = Path(__file__).parent.resolve()
 base_dir = root / "dataset/fixed_data_split"
 test_dir = base_dir / "test"
 
-# 🧱 Letterbox 이미지 리사이즈 함수
+# Letterbox 이미지 리사이즈 함수
 def letterbox_image(image, target_size=(256, 256)):
     iw, ih = image.size
     w, h = target_size
@@ -24,7 +24,7 @@ def letterbox_image(image, target_size=(256, 256)):
     new_image.paste(image_resized, ((w - nw) // 2, (h - nh) // 2))
     return new_image
 
-# 🔍 이미지 전처리 파이프라인
+# 이미지 전처리 파이프라인
 transform = transforms.Compose([
     transforms.Lambda(lambda img: letterbox_image(img, (256, 256))),
     transforms.ToTensor(),
@@ -32,15 +32,15 @@ transform = transforms.Compose([
                          std=[0.229, 0.224, 0.225])
 ])
 
-# 📦 테스트 데이터셋 & 로더
+# 테스트 데이터셋 & 로더
 test_dataset = datasets.ImageFolder(test_dir, transform=transform)
 test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False)
 
-# 📡 디바이스 설정
+# 디바이스 설정
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print("📌 Using device:", device)
+print("Using device:", device)
 
-# 🧠 모델 정의 및 출력층 수정
+# 모델 정의 및 출력층 수정
 model = models.resnet18(pretrained=True)
 model.fc = torch.nn.Sequential(
     torch.nn.Dropout(0.3),
@@ -48,11 +48,11 @@ model.fc = torch.nn.Sequential(
 )
 model = model.to(device)
 
-# 💾 모델 불러오기
+# 모델 불러오기
 model.load_state_dict(torch.load("model/Resnet18/best_all.pt"))
 model.eval()
 
-# 🔮 정확도 계산 함수
+# 정확도 계산 함수
 def calculate_accuracy(loader):
     correct = 0
     total = 0
