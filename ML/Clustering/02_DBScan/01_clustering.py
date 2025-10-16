@@ -36,9 +36,5 @@ if sum(mask) > 1:  # 군집이 2개 이상일 때만 계산 가능
 else:
     print("군집 수가 적어 실루엣 점수를 계산할 수 없습니다.")
 
-# KMeans 군집 컬럼 추가 (이미 결과가 있으면 불러와서 병합 가능)
-# 예: kmeans_df = pd.read_csv('KMeans_clusters.csv')
-# df = df.merge(kmeans_df[['CustomerID', 'Cluster']], on='CustomerID', how='left')
-
 # 결과 저장
 df.to_csv(ROOT_DIR / 'data/DBSCAN_clusters.csv', index=False)
