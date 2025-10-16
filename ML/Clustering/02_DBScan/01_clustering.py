@@ -36,5 +36,5 @@ if sum(mask) > 1:  # 군집이 2개 이상일 때만 계산 가능
 else:
     print("군집 수가 적어 실루엣 점수를 계산할 수 없습니다.")
 
-# 결과 저장
+# 군집화 데이터 저장
 df.to_csv(ROOT_DIR / 'data/DBSCAN_clusters.csv', index=False)
