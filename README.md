@@ -97,6 +97,28 @@
 
 ---
 
+### 🔹 Software Layer (LLM Orchestration)
+
+#### LangChain
+
+- Gemini 2.5 Flash 연동 및 환경 설정 (.env) 최적화
+- Prompt Template | LLM | Output Parser 구조의 기본 체인 설계
+- 모델 독립적 설계를 통한 확장성 확보 실험
+
+📁 `SoftwareLayer/LangChain/langChain.ipynb`
+
+---
+
+#### LangGraph
+
+- State(상태 객체) 기반의 순환형(Cyclic) 에이전트 설계
+- **Node(동작)**와 **Edge(흐름)**를 이용한 논리적 워크플로우 구현
+- 조건부 로직(Conditional Edges)을 활용한 지능형 고객센터 챗봇 구조 실험
+
+📁 `SoftwareLayer/LangGraph/langGraph.ipynb`
+
+---
+
 ## Note
 
 - 본 저장소는 **개인 학습 및 실험 목적**으로 운영됩니다.
