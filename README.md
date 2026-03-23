@@ -97,7 +97,9 @@
 
 ---
 
-### 🔹 Software Layer (LLM Orchestration)
+## Software Layer
+
+### 🔹LLM Orchestration
 
 #### LangChain
 
