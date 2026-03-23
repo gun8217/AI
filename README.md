@@ -114,7 +114,7 @@
 #### LangGraph
 
 - State(상태 객체) 기반의 순환형(Cyclic) 에이전트 설계
-- **Node(동작)**와 **Edge(흐름)**를 이용한 논리적 워크플로우 구현
+- Node(동작)와 Edge(흐름)를 이용한 논리적 워크플로우 구현
 - 조건부 로직(Conditional Edges)을 활용한 지능형 고객센터 챗봇 구조 실험
 
 📁 `SoftwareLayer/LangGraph/langGraph.ipynb`
